@@ -9,8 +9,6 @@ export function BookPreview({ book }) {
             <img src={thumbnail} alt="Book Image" />
             {listPrice.isOnSale && <img className="on-sale" src='./assets/img/sale.png' alt="Book Image" />}
             <h4>{listPrice.amount}{listPrice.currencyCode}</h4>
-            
-
         </article>
     )
 }

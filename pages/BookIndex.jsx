@@ -7,12 +7,11 @@ import { BookDetails } from "./BookDetails.jsx"
 const { useState, useEffect } = React
 
 export function BookIndex() {
-    // {console.log('books:',bookService.query())}
    
     bookService.query().then(console.log)
 
     const [books, setBooks] = useState(null)
-    const [selectedBookId, setSelectedBookId] = useState('1y0Oqts35DQ')
+    const [selectedBookId, setSelectedBookId] = useState(null)
     const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
 
     useEffect(() => {
@@ -57,7 +56,6 @@ export function BookIndex() {
                 </React.Fragment>
                 : 
                 <BookDetails onBack={() => setSelectedBookId(null)} bookId={selectedBookId} />
-                            // <Modal onBack={() => setSelectedBookId(null)} bookId={selectedBookId} />
             }
         </section>
     )

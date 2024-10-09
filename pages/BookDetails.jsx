@@ -48,13 +48,13 @@ export function BookDetails({ bookId, onBack }) {
   function getCurrencySymbol(currencyCode) {
     switch (currencyCode.toUpperCase()) {
       case "EUR":
-        return "€"; // Euro symbol
+        return "€"
       case "USD":
-        return "$"; // US Dollar symbol
+        return "$"
       case "ILS":
-        return "₪"; // Israeli New Shekel symbol
+        return "₪"
       default:
-        return currencyCode.toUpperCase(); // Handle unknown currency codes
+        return currencyCode.toUpperCase()
     }
   }
   const priceColor =
@@ -98,12 +98,9 @@ export function BookDetails({ bookId, onBack }) {
       </div>
       <div className="description">
         <LongTxt text={description} />
-
-        {/* <p>Description: {description}</p> */}
       </div>
       <button onClick={onBack}>Back</button>
     </section>
   );
 }
 
-// listPrice.isOnSale: false TODO
