@@ -12,7 +12,7 @@ export function BookIndex() {
     bookService.query().then(console.log)
 
     const [books, setBooks] = useState(null)
-    const [selectedBookId, setSelectedBookId] = useState(null)
+    const [selectedBookId, setSelectedBookId] = useState('1y0Oqts35DQ')
     const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
 
     useEffect(() => {

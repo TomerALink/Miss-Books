@@ -10,10 +10,10 @@ export function LongTxt({ text, length = 100 }) {
     return (
         <div>
             {isExpanded ? text : `${text.slice(0, length)}... `}
-            <button onClick={toggleReadMore} 
-            style={{ marginLeft: '5px', cursor: 'pointer' }}>
+            <a onClick={toggleReadMore} 
+            style={{ cursor: 'pointer' }}>
                 {isExpanded ? 'Read less' : 'Read more'}
-            </button>
+            </a>
         </div>
     )
 
