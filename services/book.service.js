@@ -13,6 +13,9 @@ export const bookService = {
     save,
     getEmptyBook,
     getDefaultFilter,
+    getEmptyReview,
+    addReview,
+    removeReview
 }
 
 _createBooks()
@@ -40,6 +43,33 @@ function remove(bookId) {
     return storageService.remove(BOOK_KEY, bookId)
 }
 
+function removeReview(bookId, reviewId) {
+    console.log(bookId, reviewId)
+    return new Promise((resolve, reject) => {
+        get(bookId).then(book => {
+            console.log(book)
+            if (!book) {
+                reject('Book not found')
+                return;
+            }
+    
+            console.log(book.reviews, reviewId)
+            const reviewIdx = book.reviews.findIndex(review => review.id === reviewId)
+    
+            if (reviewIdx === -1) {
+                reject('Review not found')
+                return;
+            }
+    
+            book.reviews.splice(reviewIdx, 1)
+            save(book);
+    
+            resolve('Review removed successfully')
+        })
+       
+    })
+}
+
 function save(book) {
     if (book.id) {
         return storageService.put(BOOK_KEY, book)
@@ -52,13 +82,13 @@ function getDefaultFilter() {
     return { txt: '', price: '' }
 }
 
-function getEmptyBook(title = '', subtitle ='', authors = [], publishedDate, description = '',pageCount='', categories=[], thumbnail = '', language, listPrice = {amount:0}, id){
-    return {title, subtitle , authors, publishedDate, description, pageCount, categories, thumbnail, language,  listPrice, id}
+function getEmptyBook(title = '', subtitle ='', authors = [], publishedDate, description = '',pageCount='', categories=[], thumbnail = '', language, listPrice = {amount:0}, id, reviews =[]){
+    return {title, subtitle , authors, publishedDate, description, pageCount, categories, thumbnail, language,  listPrice, reviews, id}
 }
 
 function _createBook(newBook){
     const {title, subtitle, authors, publishedDate, description, pageCount, categories,thumbnail, language, listPrice, id} = newBook
-    const book = getEmptyBook(title, subtitle, authors, publishedDate, description, pageCount, categories, thumbnail, language, listPrice, id )
+    const book = getEmptyBook(title, subtitle, authors, publishedDate, description, pageCount, categories, thumbnail, language, listPrice, id, [] )
     if(!id) book.id = makeId()
     
     return book
@@ -88,4 +118,18 @@ function _setNextPrevBookId(book) {
         book.prevBookId = prevBook.id
         return book
     })
+}
+
+function getEmptyReview(fullname='', rating=0, readAt= new Date()){
+    return {fullname, rating, readAt}
+}
+
+function addReview(bookId, review) {
+    return  get(bookId).then(
+        book => {
+            review.id = makeId()
+            book.reviews.push(review) 
+            save(book)
+        }
+    )
 }

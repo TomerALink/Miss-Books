@@ -13,6 +13,7 @@
 @import 'cmps/user-msg.css';
 @import 'cmps/book-filter.css';
 @import 'cmps/book-list.css';
+@import 'cmps/review-list.css';
 @import 'cmps/book-preview.css';
 @import 'cmps/modal.css';
 
@@ -20,6 +21,7 @@
 @import 'pages/about.css';
 @import 'pages/book-details.css';
 @import 'pages/book-edit.css';
+@import 'pages/add-review.css';
 @import 'pages/book-index.css';
 @import 'pages/home.css';
 

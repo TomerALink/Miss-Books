@@ -1,0 +1,35 @@
+ .review-list ul{
+    list-style: none;
+    padding: 15px 0 0;
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+    gap: 15px;
+}
+
+.review-list li {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--clr1bg);
+    border-radius: 1.25em;
+    color: var(--gray1);
+    margin-bottom: 1em;;
+} 
+.review-list li  div {
+    text-align: right;
+    margin: 1em;
+    
+}
+.review-list li  span {
+    margin: 1em;
+}
+.review-list li h4,button{
+    color: var(--gray1);
+    border-top: 1px solid var(--clr2bg);
+    border-bottom: 1px solid var(--clr2bg);
+}
+
+.review-list li img{
+    border-radius: 1.25em;
+}

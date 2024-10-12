@@ -1,6 +1,6 @@
 .book-details {
     display: grid;
-    grid-template-rows: 1fr auto 1fr 1fr;
+    grid-template-rows: 1em 1fr auto 1fr 1fr;
     color: var(--clr1);   
 }
 
@@ -72,5 +72,11 @@ div .book-details {
 
 .green {
     color:rgb(10, 93, 10);
+}
+
+.next-prev {
+    display: flex;
+    justify-content: stretch;
+    padding: 10px;
 }
 

@@ -1,5 +1,6 @@
-import { bookService } from "../services/book.service.js";
-import { LongTxt } from "../cmps/LongTxt.jsx";
+import { bookService } from "../services/book.service.js"
+import { LongTxt } from "../cmps/LongTxt.jsx"
+import { ReviewList } from "../cmps/ReviewList.jsx"
 
 const {useParams, Link, useNavigate} = ReactRouterDOM
 
@@ -12,7 +13,7 @@ export function BookDetails() {
 
   useEffect(() => {
     loadBook()
-  }, [bookId])
+  }, [bookId, book])
 
   function loadBook() {
     bookService.get(bookId)
@@ -36,6 +37,7 @@ export function BookDetails() {
     thumbnail,
     language,
     listPrice,
+    reviews,
     id,
   } = book;
 
@@ -46,15 +48,15 @@ export function BookDetails() {
   function getPageCountText(pageCount) {
     switch (true) {
       case pageCount > 500:
-        return "Serious Reading";
+        return "Serious Reading"
       case pageCount > 200:
-        return "Descent Reading";
+        return "Descent Reading"
       case pageCount > 100:
-        return "Light Reading";
+        return "Light Reading"
     }
   }
   function getPublishedDateTxt(publishedDate) {
-    return new Date().getFullYear() - publishedDate > 10 ? "Vintage" : "New!";
+    return new Date().getFullYear() - publishedDate > 10 ? "Vintage" : "New!"
   }
 
   function getCurrencySymbol(currencyCode) {
@@ -69,11 +71,17 @@ export function BookDetails() {
         return currencyCode.toUpperCase()
     }
   }
+
+
+
   const priceColor =
-    listPrice.amount > 150 ? "red" : listPrice.amount < 20 ? "green" : "";
+    listPrice.amount > 150 ? "red" : listPrice.amount < 20 ? "green" : ""
 
   return (
     <section className="book-details">
+      <div>
+      <button onClick={onBack}> Back </button>
+        </div>
       <div className="book-title">
         <h1>{title}</h1>
         <h3>
@@ -111,11 +119,18 @@ export function BookDetails() {
       <div className="description">
         <LongTxt text={description} />
       </div>
-      <button onClick={onBack}> Back </button>
-      <section>
-          <button > <Link to={`/book/${book.prevBookId}`}> Prev Car</Link> </button>
-          <button > <Link to={`/book/${book.nextBookId}`}> Next Car</Link> </button>
+      <section className="reviews">
+        <ReviewList book={book}   />
       </section>
+      <button><Link to={`/book/review/${book.id}`}> Add review</Link></button>
+      
+      <div>
+      <section className="next-prev">
+          <button > <Link to={`/book/${book.prevBookId}`}> Prev Book</Link> </button>
+          <button > <Link to={`/book/${book.nextBookId}`}> Next Book</Link> </button>
+      </section>
+      </div>
+      
     </section>
   )
 }

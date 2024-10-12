@@ -63,7 +63,6 @@ export function BookEdit() {
     function onSaveBook(ev){
         ev.preventDefault()
         const str = bookToEdit.id ? 'edited' : 'added'
-        console.log('kkkkkkkkk', bookToEdit.id)
         bookService.save(bookToEdit)
         .then(book => {
             console.log('book saved secsesfully', book)
