@@ -39,7 +39,8 @@ export function App() {
                 <Route path="/book/edit/:bookId" element={<BookEdit/>}/>
                 {/* <Route path="/book/add" element={<BookEdit/>}/> */}
                 <Route path="/*" element={<NotFound/>}/>
-                <Route path="/book/add" element={<BookAdd />} />
+                <Route path="/book/add-google" element={<BookAdd />} />
+                <Route path="/book/add-manual" element={<BookEdit/>}/>
           </Routes>
           
         </main>
