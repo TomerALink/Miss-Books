@@ -2,11 +2,15 @@
     background-color: lightgray;
     padding: .5em 1em;
     position: fixed;
-    bottom: 0;
+    inset: 0;
+    margin: auto;
     right: 1em;
     color: white;
     font-weight: bold;
+    font-size: 4em;
     border-radius: 2px;
+    width:fit-content;
+    height: fit-content;
 }
 
 .user-msg.success {

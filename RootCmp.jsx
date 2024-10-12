@@ -12,7 +12,7 @@ import { Vision } from "./cmps/Vision.jsx"
 import { BookDetails } from "./pages/BookDetails.jsx"
 import { NotFound } from "./cmps/NotFound.jsx"
 import { BookEdit } from "./cmps/BookEdit.jsx"
-
+import { UserMsg } from "./cmps/UserMsg.jsx"
 
 
 export function App() {
@@ -40,7 +40,7 @@ export function App() {
           </Routes>
           
         </main>
-        
+        <UserMsg/>
       </section>
     </Router>
   )
