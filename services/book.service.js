@@ -15,7 +15,8 @@ export const bookService = {
     getDefaultFilter,
     getEmptyReview,
     addReview,
-    removeReview
+    removeReview,
+    add
 }
 
 _createBooks()
@@ -76,6 +77,10 @@ function save(book) {
     } else {
         return storageService.post(BOOK_KEY, book)
     }
+}
+
+function add(book) {
+    return storageService.post(BOOK_KEY, book)
 }
 
 function getDefaultFilter() {
