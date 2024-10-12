@@ -63,7 +63,7 @@ div .book-details {
     font-size: 1.5em;
  }
 
-.book-details a,.pipe {
+.book-details .pipe {
    color: var(--clr2bg);
 }
 .red {

@@ -1,19 +1,27 @@
 import { bookService } from "../services/book.service.js";
 import { LongTxt } from "../cmps/LongTxt.jsx";
 
-const { useEffect, useState } = React;
+const {useParams, Link, useNavigate} = ReactRouterDOM
 
-export function BookDetails({ bookId, onBack }) {
-  const [book, setBook] = useState(null);
+const { useEffect, useState } = React
+
+export function BookDetails() {
+  const [book, setBook] = useState(null)
+  const {bookId} = useParams()
+  const navigate  = useNavigate()
 
   useEffect(() => {
-    bookService
-      .get(bookId)
-      .then(setBook)
-      .catch((err) => {
-        console.log("Problem getting book:", err);
-      });
-  }, []);
+    loadBook()
+  }, [bookId])
+
+  function loadBook() {
+    bookService.get(bookId)
+    .then(setBook)
+    .catch(err => {
+      console.log('Problem loading book:', err)
+    })
+  }
+
 
   if (!book) return <div>Loading...</div>;
 
@@ -30,6 +38,10 @@ export function BookDetails({ bookId, onBack }) {
     listPrice,
     id,
   } = book;
+
+  function onBack() {
+    navigate("/book")
+  }
 
   function getPageCountText(pageCount) {
     switch (true) {
@@ -66,8 +78,8 @@ export function BookDetails({ bookId, onBack }) {
         <h1>{title}</h1>
         <h3>
           by:{" "}
-          {authors.map((a) => (
-            <span>{a}</span>
+          {authors.map((a,idx) => (
+            <span key={idx}>{a}</span>
           ))}
         </h3>
       </div>
@@ -81,8 +93,8 @@ export function BookDetails({ bookId, onBack }) {
           <div> {subtitle} </div>
           <div>
             <b>Categories:</b>{" "}
-            {categories.map((c) => (
-              <span>{c}</span>
+            {categories.map((c,idx) => (
+              <span key={idx} >{c}</span>
             ))}{" "}
           </div>
 
@@ -99,8 +111,12 @@ export function BookDetails({ bookId, onBack }) {
       <div className="description">
         <LongTxt text={description} />
       </div>
-      <button onClick={onBack}>Back</button>
+      <button onClick={onBack}> Back </button>
+      <section>
+          <button > <Link to={`/book/${book.prevBookId}`}> Prev Car</Link> </button>
+          <button > <Link to={`/book/${book.nextBookId}`}> Next Car</Link> </button>
+      </section>
     </section>
-  );
+  )
 }
 
