@@ -156,7 +156,7 @@ function _getBookCountByCategoryMap(books) {
             book.categories.forEach(category => {
                 if (!map[category]) map[category] = 0  
                 map[category]++ 
-            });
+            })
         }
         return map
     }, {})
