@@ -16,6 +16,7 @@
 @import 'cmps/review-list.css';
 @import 'cmps/book-preview.css';
 @import 'cmps/modal.css';
+@import 'cmps/rate-by-starts.css';
 
 /* Pages */
 @import 'pages/about.css';

@@ -1,0 +1,8 @@
+.star {
+    color: lightgray;
+    transition: color 200ms;
+}
+
+.star.filled {
+    color: gold;
+}

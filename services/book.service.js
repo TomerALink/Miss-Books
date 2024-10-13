@@ -16,7 +16,8 @@ export const bookService = {
     getEmptyReview,
     addReview,
     removeReview,
-    add
+    add, 
+    getFilterFromSearchParams
 }
 
 _createBooks()
@@ -138,3 +139,13 @@ function addReview(bookId, review) {
         }
     )
 }
+
+function getFilterFromSearchParams(searchParams) {
+    const txt = searchParams.get('txt') || ''
+    const price = searchParams.get('price') || ''
+    return {
+        txt,
+        price
+    }
+}
+

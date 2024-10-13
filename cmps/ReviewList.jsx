@@ -33,7 +33,7 @@ export function ReviewList({ book, onRemoveReview}) {
                     
                     <Review review={review} />
                      <div>
-                     <button onClick={() => onRemoveReview(book.id, review.id)}>Remove {book.id}{review.id}</button>
+                     <button onClick={() => onRemoveReview(book.id, review.id)}>Remove </button>
                         </div>  
                    
                 </li>
