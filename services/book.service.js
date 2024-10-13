@@ -16,8 +16,9 @@ export const bookService = {
     getEmptyReview,
     addReview,
     removeReview,
-    add, 
-    getFilterFromSearchParams
+    add,
+    getFilterFromSearchParams,
+    getCategoryStats
 }
 
 _createBooks()
@@ -54,21 +55,21 @@ function removeReview(bookId, reviewId) {
                 reject('Book not found')
                 return;
             }
-    
+
             console.log(book.reviews, reviewId)
             const reviewIdx = book.reviews.findIndex(review => review.id === reviewId)
-    
+
             if (reviewIdx === -1) {
                 reject('Review not found')
                 return;
             }
-    
+
             book.reviews.splice(reviewIdx, 1)
             save(book);
-    
+
             resolve('Review removed successfully')
         })
-       
+
     })
 }
 
@@ -88,28 +89,28 @@ function getDefaultFilter() {
     return { txt: '', price: '' }
 }
 
-function getEmptyBook(title = '', subtitle ='', authors = [], publishedDate, description = '',pageCount='', categories=[], thumbnail = '', language, listPrice = {amount:0}, id, reviews =[]){
-    return {title, subtitle , authors, publishedDate, description, pageCount, categories, thumbnail, language,  listPrice, reviews, id}
+function getEmptyBook(title = '', subtitle = '', authors = [], publishedDate, description = '', pageCount = '', categories = [], thumbnail = '', language, listPrice = { amount: 0 }, id, reviews = []) {
+    return { title, subtitle, authors, publishedDate, description, pageCount, categories, thumbnail, language, listPrice, reviews, id }
 }
 
-function _createBook(newBook){
-    const {title, subtitle, authors, publishedDate, description, pageCount, categories,thumbnail, language, listPrice, id} = newBook
-    const book = getEmptyBook(title, subtitle, authors, publishedDate, description, pageCount, categories, thumbnail, language, listPrice, id, [] )
-    if(!id) book.id = makeId()
-    
+function _createBook(newBook) {
+    const { title, subtitle, authors, publishedDate, description, pageCount, categories, thumbnail, language, listPrice, id } = newBook
+    const book = getEmptyBook(title, subtitle, authors, publishedDate, description, pageCount, categories, thumbnail, language, listPrice, id, [])
+    if (!id) book.id = makeId()
+
     return book
 }
 
-function _createBooks(){
+function _createBooks() {
 
     let books = loadFromStorage(BOOK_KEY)
     if (!books || !books.length) {
-        
-        books = 
-            hc_books.map(book => 
-            _createBook(book)
-        )
-        
+
+        books =
+            hc_books.map(book =>
+                _createBook(book)
+            )
+
         saveToStorage(BOOK_KEY, books)
     }
 }
@@ -126,15 +127,15 @@ function _setNextPrevBookId(book) {
     })
 }
 
-function getEmptyReview(fullname='', rating=0, readAt= new Date()){
-    return {fullname, rating, readAt}
+function getEmptyReview(fullname = '', rating = 0, readAt = new Date()) {
+    return { fullname, rating, readAt }
 }
 
 function addReview(bookId, review) {
-    return  get(bookId).then(
+    return get(bookId).then(
         book => {
             review.id = makeId()
-            book.reviews.push(review) 
+            book.reviews.push(review)
             save(book)
         }
     )
@@ -149,3 +150,33 @@ function getFilterFromSearchParams(searchParams) {
     }
 }
 
+function _getBookCountByCategoryMap(books) {
+    const bookCountByCategoryMap = books.reduce((map, book) => {
+        if (book.categories && Array.isArray(book.categories)) {
+            book.categories.forEach(category => {
+                if (!map[category]) map[category] = 0  
+                map[category]++ 
+            });
+        }
+        return map
+    }, {})
+
+    console.log(bookCountByCategoryMap)
+    return bookCountByCategoryMap
+}
+
+
+function getCategoryStats() {
+    return storageService.query(BOOK_KEY)
+        .then(books => {
+            const bookCountByCategoryMap = _getBookCountByCategoryMap(books)
+            const data = Object.keys(bookCountByCategoryMap)
+                .map(category =>
+                ({
+                    title: category,
+                    value: Math.round((bookCountByCategoryMap[category]
+                        / books.length) * 100)
+                }))
+            return data
+        })
+}

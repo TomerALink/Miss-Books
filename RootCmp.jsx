@@ -15,6 +15,7 @@ import { BookEdit } from "./cmps/BookEdit.jsx"
 import { UserMsg } from "./cmps/UserMsg.jsx"
 import { AddReview } from "./cmps/AddReview.jsx"
 import { BookAdd } from './cmps/BookAdd.jsx';
+import { Dashboard } from "./cmps/Dashboard.jsx"
 
 export function App() {
   // const [page, setPage] = useState('book')
@@ -34,6 +35,7 @@ export function App() {
                     <Route path="/about/vision" element={<Vision/>}/>
                 </Route>
                 <Route path="/book" element={<BookIndex/>}/>
+                <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/book/:bookId" element={<BookDetails/>}/>
                 <Route path="/book/review/:bookId" element={<AddReview/>}/>
                 <Route path="/book/edit/:bookId" element={<BookEdit/>}/>
